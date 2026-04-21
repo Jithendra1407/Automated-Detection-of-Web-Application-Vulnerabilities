@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CyberScan Pro — Advanced Vulnerability Scanner</title>
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+    /* ── Landing-specific styles ── */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 60px 24px;
+      position: relative;
+    }
+ 
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+ 
+    .hero h1 {
+      font-family: var(--font-ui);
+      font-size: clamp(42px, 7vw, 88px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .hero h1 .hl {
+      color: var(--accent);
+      text-shadow: var(--glow);
+    }
+ 
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-dim);
+      max-width: 540px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+ 
+    .typewriter-wrap {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 40px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+    #typewriter { color: var(--accent); }
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 18px;
+      background: var(--accent);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+ 
+    .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+ 
+    /* Glowing orb background */
+    .hero-orb {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,224,0.06) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+ 
+    /* ── Features ── */
+    .section { padding: 80px 32px; max-width: 1200px; margin: 0 auto; }
+ 
+    .section-title {
+      font-family: var(--font-ui);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+ 
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+ 
+    .feature-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+    .feature-icon {
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+    .feature-title {
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+ 
+    /* ── Stats row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 0 32px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .stats-row .stat-card .stat-value { font-size: 44px; }
+ 
+    /* ── CTA banner ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--panel) 0%, var(--panel2) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 60px 40px;
+      text-align: center;
+      margin: 0 32px;
+      max-width: 1136px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      z-index: -1;
+      opacity: 0.15;
+    }
+    .cta-banner h2 {
+      font-family: var(--font-ui);
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-banner p {
+      color: var(--text-dim);
+      margin-bottom: 32px;
+    }
+ 
+    /* ── Pricing ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .price-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .price-card.featured {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+    .price-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .price-featured-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-left: 8px;
+    }
+    .price-amount {
+      font-family: var(--font-ui);
+      font-size: 42px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price-amount sup { font-size: 20px; vertical-align: top; margin-top: 8px; }
+    .price-period { font-size: 12px; color: var(--text-dim); margin-bottom: 24px; }
+    .price-features { margin-bottom: 28px; }
+    .price-features li {
+      font-size: 13px;
+      color: var(--text);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(26,58,82,0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .price-features li .check { color: var(--ok); font-size: 12px; }
+    .price-features li .cross { color: var(--text-dim); font-size: 12px; }
+</style>
+</head>
+<body>
+ 
+<!-- ── NAV ─────────────────────────────────── -->
+<nav class="top-nav">
+<a href="index.html" class="nav-logo">
+<div class="logo-icon">⬡</div>
+    Cyber<span>Scan</span> Pro
+</a>
+<ul class="nav-links">
+<li><a href="#features">Features</a></li>
+<li><a href="#pricing">Pricing</a></li>
+<li><a href="dashboard.html">Dashboard</a></li>
+<li><a href="#">Docs</a></li>
+</ul>
+<div class="nav-cta">
+<a href="dashboard.html" class="btn btn-outline btn-sm">Sign In</a>
+<a href="dashboard.html" class="btn btn-primary btn-sm">Start Free Scan</a>
+</div>
+</nav>
+ 
+<!-- ── HERO ─────────────────────────────────── -->
+<section class="hero">
+<div class="hero-orb"></div>
+<div class="hero-eyebrow">Enterprise Vulnerability Intelligence</div>
+<h1>Find Threats<br>Before They <span class="hl">Find You</span></h1>
+<p class="hero-sub">CyberScan Pro delivers deep vulnerability scanning, CVE correlation, and real-time threat intelligence across your entire attack surface.</p>
+<div class="typewriter-wrap">
+<span id="typewriter"></span><span class="cursor"></span>
+</div>
+<div class="hero-cta">
+<a href="dashboard.html" class="btn btn-primary btn-lg">Launch Scanner →</a>
+<a href="#features" class="btn btn-outline btn-lg">See Features</a>
+</div>
+</section>
+ 
+<!-- ── STATS ─────────────────────────────────── -->
+<div class="stats-row">
+<div class="stat-card" data-value="24800" data-pct="88" data-suffix="" data-reveal>
+<div class="stat-label">CVEs in Database</div>
+<div class="stat-value mono">0</div>
+<div class="stat-sub accent">Updated daily</div>
+<div class="stat-bar" style="width:0"></div>
+</div>
+<div class="stat-card" data-value="99" data-pct="99" data-suffix="%" data-reveal>
+<div class="stat-label">Detection Rate</div>
+<div class="stat-value mono">0</div>
+<div class="stat-sub ok">Industry leading</div>
+<div class="stat-bar" style="width:0"></div>
+</div>
+<div class="stat-card" data-value="3" data-pct="20" data-suffix="s" data-reveal>
+<div class="stat-label">Avg. Scan Time</div>
+<div class="stat-value mono">0</div>
+<div class="stat-sub dim">Per target</div>
+<div class="stat-bar" style="width:0"></div>
+</div>
+<div class="stat-card" data-value="1400" data-pct="70" data-suffix="+" data-reveal>
+<div class="stat-label">Organizations Protected</div>
+<div class="stat-value mono">0</div>
+<div class="stat-sub accent">Globally</div>
+<div class="stat-bar" style="width:0"></div>
+</div>
+</div>
+ 
+<!-- ── FEATURES ──────────────────────────────── -->
+<section class="section" id="features">
+<p class="mono accent" style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px">Capabilities</p>
+<h2 class="section-title">Complete Security Coverage</h2>
+<p class="section-sub">From port scanning to exploit verification — all in one platform.</p>
+ 
+  <div class="features-grid">
+<div class="feature-card" data-reveal>
+<div class="feature-icon">🔍</div>
+<div class="feature-title">Deep Port Scanning</div>
+<p class="feature-desc">Full TCP/UDP port discovery with service banner grabbing, OS fingerprinting, and version detection.</p>
+</div>
+<div class="feature-card" data-reveal>
+<div class="feature-icon">🛡️</div>
+<div class="feature-title">CVE Correlation</div>
+<p class="feature-desc">Automatically cross-references detected services against 24,000+ CVEs with CVSS scoring and exploit availability.</p>
+</div>
+<div class="feature-card" data-reveal>
+<div class="feature-icon">🔐</div>
+<div class="feature-title">SSL/TLS Analysis</div>
+<p class="feature-desc">Certificate chain validation, cipher suite analysis, protocol downgrade detection, and expiry monitoring.</p>
+</div>
+<div class="feature-card" data-reveal>
+<div class="feature-icon">🌐</div>
+<div class="feature-title">Web App Scanner</div>
+<p class="feature-desc">OWASP Top 10 coverage: SQLi, XSS, CSRF, IDOR, misconfigurations, and exposed sensitive endpoints.</p>
+</div>
+<div class="feature-card" data-reveal>
+<div class="feature-icon">📊</div>
+<div class="feature-title">Risk Scoring</div>
+<p class="feature-desc">Composite risk score calculated from severity weights, exploitability, and asset criticality context.</p>
+</div>
+<div class="feature-card" data-reveal>
+<div class="feature-icon">📋</div>
+<div class="feature-title">Detailed Reports</div>
+<p class="feature-desc">Exportable PDF/CSV reports with executive summaries, technical details, and remediation guidance.</p>
+</div>
+</div>
+</section>
+ 
+<!-- ── PRICING ────────────────────────────────── -->
+<section class="section" id="pricing">
+<p class="mono accent" style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px">Plans</p>
+<h2 class="section-title">Simple Pricing</h2>
+<p class="section-sub">No hidden fees. Cancel anytime.</p>
+ 
+  <div class="pricing-grid">
+<div class="price-card" data-reveal>
+<div class="price-label">Starter</div>
+<div class="price-amount"><sup>$</sup>0</div>
+<div class="price-period">forever free</div>
+<ul class="price-features">
+<li><span class="check">✓</span> 5 scans / month</li>
+<li><span class="check">✓</span> Basic port scanning</li>
+<li><span class="check">✓</span> CVE correlation</li>
+<li><span class="cross">–</span> Web app scanning</li>
+<li><span class="cross">–</span> PDF reports</li>
+<li><span class="cross">–</span> API access</li>
+</ul>
+<a href="dashboard.html" class="btn btn-outline w-full" style="justify-content:center">Get Started</a>
+</div>
+ 
+    <div class="price-card featured" data-reveal>
+<div class="price-label">Pro <span class="price-featured-badge">POPULAR</span></div>
+<div class="price-amount"><sup>$</sup>49</div>
+<div class="price-period">per month</div>
+<ul class="price-features">
+<li><span class="check">✓</span> Unlimited scans</li>
+<li><span class="check">✓</span> Full port scanning</li>
+<li><span class="check">✓</span> CVE + exploit check</li>
+<li><span class="check">✓</span> Web app scanning</li>
+<li><span class="check">✓</span> PDF/CSV reports</li>
+<li><span class="cross">–</span> API access</li>
+</ul>
+<a href="dashboard.html" class="btn btn-primary w-full" style="justify-content:center">Start Free Trial</a>
+</div>
+ 
+    <div class="price-card" data-reveal>
+<div class="price-label">Enterprise</div>
+<div class="price-amount" style="font-size:32px;padding-top:5px">Custom</div>
+<div class="price-period">contact sales</div>
+<ul class="price-features">
+<li><span class="check">✓</span> Unlimited scans</li>
+<li><span class="check">✓</span> All Pro features</li>
+<li><span class="check">✓</span> API access</li>
+<li><span class="check">✓</span> SSO / SAML</li>
+<li><span class="check">✓</span> Custom integrations</li>
+<li><span class="check">✓</span> Dedicated support</li>
+</ul>
+<a href="#" class="btn btn-outline w-full" style="justify-content:center">Contact Sales</a>
+</div>
+</div>
+</section>
+ 
+<!-- ── CTA BANNER ─────────────────────────────── -->
+<div class="cta-banner" data-reveal>
+<h2>Ready to Secure Your Infrastructure?</h2>
+<p>Start your first scan in under 60 seconds — no credit card required.</p>
+<a href="dashboard.html" class="btn btn-primary btn-lg">Launch Free Scan →</a>
+</div>
+ 
+<!-- ── FOOTER ─────────────────────────────────── -->
+<footer>
+<div>© 2025 <span>CyberScan Pro</span>. All rights reserved.</div>
+<div class="flex gap-md">
+<a href="#">Privacy</a>
+<a href="#">Terms</a>
+<a href="#">Security</a>
+<a href="#">Status</a>
+</div>
+<div id="live-clock" class="mono" style="color:var(--accent)">--:--:--</div>
+</footer>
+ 
+<script src="js/app.js"></script>
+</body>
+</html>
